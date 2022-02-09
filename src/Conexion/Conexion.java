@@ -3,6 +3,7 @@ package Conexion;
 import java.sql.*;
 
 public class Conexion {
+    //test del push y los comits
         //Solo se debe de camibar esto (DESKTOP-83PV3G4)por lo que les
         //sale al abrir el sql management y agregar el usuario = pruebas Contraseña= pruebas
         //con los permisos de owner y todo lo demas deberia de funcionar bien
