@@ -1,7 +1,10 @@
-package Domain;
+package Reportes;
 
 import Conexion.ArticulosDAO;
+import Conexion.Conexion;
 import Conexion.TiposDeArticulosDAO;
+import Domain.Articulos;
+import Domain.TiposDeArticulos;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Paragraph;
@@ -10,13 +13,28 @@ import com.itextpdf.text.pdf.PdfWriter;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.util.List;
+import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.WindowConstants;
+import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
+import net.sf.jasperreports.view.JasperViewer;
 
 public class CrearReporte {
 
     private static final String ruta = System.getProperty("user.home") + "/Desktop/Reporte.pdf";
+    private static final String JRXML = "src\\Reportes\\ReporteArticulos.jrxml";
+    
     public CrearReporte() {
     }
     
@@ -84,10 +102,30 @@ public class CrearReporte {
             
             
         } catch (FileNotFoundException ex) {
-            ex.printStackTrace();
+            JOptionPane x = new JOptionPane();
+            x.showMessageDialog(null, "Hubo un error al imprimir el reporte: \n" + ex.getMessage());
         } catch (DocumentException ex) {
-           ex.printStackTrace();
+            JOptionPane x = new JOptionPane();
+            x.showMessageDialog(null, "Hubo un error al imprimir el reporte: \n" + ex.getMessage());
         }
         
+    }
+    
+    public void genReporte(){
+        try {
+            Connection con = Conexion.getConexion();
+            
+            JasperDesign jd = JRXmlLoader.load(JRXML);
+            JasperReport jreport = JasperCompileManager.compileReport(jd);
+            JasperPrint jprint = JasperFillManager.fillReport(jreport, null, con);
+            JasperViewer.viewReport(jprint);
+            
+        } catch (JRException ex) {
+            JOptionPane x = new JOptionPane();
+            x.showMessageDialog(null, "Hubo un error al imprimir el reporte: \n" + ex.getMessage());
+        } catch (SQLException ex) {
+            JOptionPane x = new JOptionPane();
+            x.showMessageDialog(null, "Hubo un error al imprimir el reporte: \n" + ex.getMessage());
+        }
     }
 }

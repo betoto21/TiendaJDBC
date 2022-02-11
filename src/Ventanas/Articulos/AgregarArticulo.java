@@ -1,31 +1,31 @@
-
 package Ventanas.Articulos;
 
 import Conexion.ArticulosDAO;
 import Conexion.TiposDeArticulosDAO;
 import Domain.Articulos;
 import Domain.TiposDeArticulos;
+import Ventanas.TablaPrincipal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
-
 
 public class AgregarArticulo extends javax.swing.JFrame {
 
-   private int IdArticulo;
-   private String Nombre;
-   private double Precio;
-   private int IdTipo;
-   private String Marca;
-   private String Descripcion;
-   
+    private int IdArticulo;
+    private String Nombre;
+    private double Precio;
+    private int IdTipo;
+    private String Marca;
+    private String Descripcion;
+
     public AgregarArticulo() {
         initComponents();
         this.setLocationRelativeTo(null);
         llenarCombo();
     }
 
-   
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -150,8 +150,8 @@ public class AgregarArticulo extends javax.swing.JFrame {
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         this.dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
-    
-    public void llenarCombo(){
+
+    public void llenarCombo() {
         List<TiposDeArticulos> x = new ArrayList();
         TiposDeArticulosDAO c = new TiposDeArticulosDAO();
         x = c.seleccionarTodo();
@@ -162,8 +162,8 @@ public class AgregarArticulo extends javax.swing.JFrame {
         }
         tipoArticulo.setModel(new javax.swing.DefaultComboBoxModel<>(arr));
     }
-    
-    public int getId(String tipo){
+
+    public int getId(String tipo) {
         //Indica el id del tipo de articulo
         int id = 0;
         List<TiposDeArticulos> x = new ArrayList();
@@ -180,24 +180,24 @@ public class AgregarArticulo extends javax.swing.JFrame {
         return id;
     }
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-        String n = tipoArticulo.getSelectedItem().toString(); 
+        String n = tipoArticulo.getSelectedItem().toString();
         int IdArticulo = Integer.valueOf(txtID.getText());
-         String Nombre = txtNombre.getText();
-         double Precio = Double.valueOf(txtPrecio.getText());
-         int IdTipo = getId(n);
-         String Marca = txtMarca.getText();
-         String Descripcion = txtDescripcion.getText();
-         Articulos nuevo = new Articulos(IdArticulo, Nombre, Precio, IdTipo, Marca, Descripcion);
-         ArticulosDAO accion = new ArticulosDAO();
-         accion.insertar(nuevo);
-         
-         this.dispose();
-            
-            
+        String Nombre = txtNombre.getText();
+        double Precio = Double.valueOf(txtPrecio.getText());
+        int IdTipo = getId(n);
+        String Marca = txtMarca.getText();
+        String Descripcion = txtDescripcion.getText();
+        Articulos nuevo = new Articulos(IdArticulo, Nombre, Precio, IdTipo, Marca, Descripcion);
+        ArticulosDAO accion = new ArticulosDAO();
+        accion.insertar(nuevo);
+        TablaPrincipal x;
+        this.dispose();
+
+
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void tipoArticuloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tipoArticuloActionPerformed
-        
+
     }//GEN-LAST:event_tipoArticuloActionPerformed
 
     /**

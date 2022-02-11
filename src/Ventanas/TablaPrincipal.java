@@ -7,7 +7,7 @@ import Ventanas.Articulos.AgregarArticulo;
 import Conexion.ArticulosDAO;
 import Conexion.TiposDeArticulosDAO;
 import Domain.Articulos;
-import Domain.CrearReporte;
+import Reportes.CrearReporte;
 import Domain.TiposDeArticulos;
 import Ventanas.Tipos.EliminarTipo;
 import Ventanas.Tipos.ModificarTipo;
@@ -23,7 +23,7 @@ public class TablaPrincipal extends javax.swing.JFrame {
     public TablaPrincipal() throws InterruptedException {
         initComponents();
         this.setLocationRelativeTo(null);
-        llenarArticulo();
+        actualizarArticulo();
     }
 
     public void llenarArticulo() {
@@ -128,13 +128,13 @@ public class TablaPrincipal extends javax.swing.JFrame {
 
         tblMostrar.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {},
-                {},
-                {},
-                {}
+                {null},
+                {null},
+                {null},
+                {null}
             },
             new String [] {
-
+                "Title 1"
             }
         ));
         jScrollPane1.setViewportView(tblMostrar);
@@ -284,7 +284,8 @@ public class TablaPrincipal extends javax.swing.JFrame {
 
     private void genPdfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_genPdfActionPerformed
         CrearReporte x = new CrearReporte();
-        x.imprimirPDF();
+//        x.imprimirPDF();
+        x.genReporte();
     }//GEN-LAST:event_genPdfActionPerformed
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
