@@ -118,7 +118,7 @@ public class CrearReporte {
             JasperDesign jd = JRXmlLoader.load(JRXML);
             JasperReport jreport = JasperCompileManager.compileReport(jd);
             JasperPrint jprint = JasperFillManager.fillReport(jreport, null, con);
-            JasperViewer.viewReport(jprint);
+            JasperViewer.viewReport(jprint, false);
             
         } catch (JRException ex) {
             JOptionPane x = new JOptionPane();
