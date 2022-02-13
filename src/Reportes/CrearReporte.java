@@ -14,6 +14,8 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.util.List;
 import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperCompileManager;
@@ -28,13 +30,15 @@ public class CrearReporte extends Thread{
 
     private static final String ruta = System.getProperty("user.home") + "/Desktop/Reporte.pdf";
     private static final String JRXML = "src\\Reportes\\ReporteArticulos.jrxml";
+    Barra barra = new Barra();
     
     public CrearReporte() {
-        
+         
     }
     
     @Override
    public void run(){
+       barra.setVisible(true);
        genReporte();
    }
    
@@ -117,11 +121,20 @@ public class CrearReporte extends Thread{
     public void genReporte(){
         try {
             Connection con = Conexion.getConexion();
-            
+            barra.addPorcentaje("25%");
+            barra.addProgreso(25);
             JasperDesign jd = JRXmlLoader.load(JRXML);
             JasperReport jreport = JasperCompileManager.compileReport(jd);
+            barra.addPorcentaje("50%");
+            barra.addProgreso(50);
             JasperPrint jprint = JasperFillManager.fillReport(jreport, null, con);
+            barra.addPorcentaje("95%");
+            barra.addProgreso(95);
             JasperViewer.viewReport(jprint, false);
+            barra.addPorcentaje("100%");
+            barra.addProgreso(100);
+            sleep(600);
+            barra.dispose();
             
         } catch (JRException ex) {
             JOptionPane x = new JOptionPane();
@@ -129,6 +142,8 @@ public class CrearReporte extends Thread{
         } catch (SQLException ex) {
             JOptionPane x = new JOptionPane();
             x.showMessageDialog(null, "Hubo un error al imprimir el reporte: \n" + ex.getMessage());
+        } catch (InterruptedException ex) {
+            
         }
     }
 }
