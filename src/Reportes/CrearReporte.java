@@ -14,30 +14,33 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.util.List;
 import java.sql.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import javax.swing.WindowConstants;
-import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperCompileManager;
-import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.design.JasperDesign;
-import net.sf.jasperreports.engine.util.JRLoader;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import net.sf.jasperreports.view.JasperViewer;
 
-public class CrearReporte {
+public class CrearReporte extends Thread{
 
     private static final String ruta = System.getProperty("user.home") + "/Desktop/Reporte.pdf";
     private static final String JRXML = "src\\Reportes\\ReporteArticulos.jrxml";
     
     public CrearReporte() {
+        
     }
     
+    @Override
+   public void run(){
+       genReporte();
+   }
+   
+   public void iniciar(){
+       start();
+   }
     public void imprimirPDF(){
         ArticulosDAO articulo = new ArticulosDAO();
         TiposDeArticulosDAO tipos = new TiposDeArticulosDAO();

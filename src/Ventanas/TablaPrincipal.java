@@ -285,7 +285,8 @@ public class TablaPrincipal extends javax.swing.JFrame {
     private void genPdfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_genPdfActionPerformed
         CrearReporte x = new CrearReporte();
 //        x.imprimirPDF();
-        x.genReporte();
+//        x.genReporte();
+          x.iniciar();
     }//GEN-LAST:event_genPdfActionPerformed
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
