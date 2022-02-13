@@ -11,7 +11,6 @@ import Reportes.CrearReporte;
 import Domain.TiposDeArticulos;
 import Ventanas.Tipos.EliminarTipo;
 import Ventanas.Tipos.ModificarTipo;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -23,10 +22,19 @@ public class TablaPrincipal extends javax.swing.JFrame {
     public TablaPrincipal() throws InterruptedException {
         initComponents();
         this.setLocationRelativeTo(null);
-        actualizarArticulo();
+        llenarArticulo();
     }
 
     public void llenarArticulo() {
+        tblMostrar.setModel(new javax.swing.table.DefaultTableModel(
+                new Object[][]{
+                    {},
+                    {},
+                    {},
+                    {}
+                },
+                new String[]{}
+        ));
         ArticulosDAO x = new ArticulosDAO();
         List<Articulos> articulos = (List<Articulos>) x.seleccionarTodo();
         TiposDeArticulosDAO ti = new TiposDeArticulosDAO();
@@ -89,19 +97,6 @@ public class TablaPrincipal extends javax.swing.JFrame {
         }
     }
 
-    public void actualizarArticulo() {
-        tblMostrar.setModel(new javax.swing.table.DefaultTableModel(
-                new Object[][]{
-                    {},
-                    {},
-                    {},
-                    {}
-                },
-                new String[]{}
-        ));
-        llenarArticulo();
-
-    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -257,8 +252,8 @@ public class TablaPrincipal extends javax.swing.JFrame {
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
 
         if (itemArticulo.isSelected()) {
-            AgregarArticulo x = new AgregarArticulo();
-            x.setVisible(true);
+                AgregarArticulo x = new AgregarArticulo();
+                x.setVisible(true);
         } else {
             AgregarTipo y = new AgregarTipo();
             y.setVisible(true);
@@ -267,7 +262,7 @@ public class TablaPrincipal extends javax.swing.JFrame {
 
     private void btnActucalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActucalizarActionPerformed
         if (itemArticulo.isSelected()) {
-            actualizarArticulo();
+            llenarArticulo();
         } else {
             llenarTipo();
         }
@@ -279,7 +274,7 @@ public class TablaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_itemTipoActionPerformed
 
     private void itemArticuloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemArticuloActionPerformed
-        actualizarArticulo();
+        llenarArticulo();
     }//GEN-LAST:event_itemArticuloActionPerformed
 
     private void genPdfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_genPdfActionPerformed

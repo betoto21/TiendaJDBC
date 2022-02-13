@@ -7,18 +7,8 @@ import Domain.TiposDeArticulos;
 import Ventanas.TablaPrincipal;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.DefaultComboBoxModel;
 
 public class AgregarArticulo extends javax.swing.JFrame {
-
-    private int IdArticulo;
-    private String Nombre;
-    private double Precio;
-    private int IdTipo;
-    private String Marca;
-    private String Descripcion;
 
     public AgregarArticulo() {
         initComponents();
@@ -47,6 +37,7 @@ public class AgregarArticulo extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Agregar Articulos");
+        setModalExclusionType(java.awt.Dialog.ModalExclusionType.TOOLKIT_EXCLUDE);
 
         jLabel1.setText("ID del articulo:");
 

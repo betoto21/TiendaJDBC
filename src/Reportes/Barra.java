@@ -1,18 +1,7 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package Reportes;
 
-/**
- *
- * @author DANIEL FELIX
- */
 public class Barra extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Barra
-     */
     public Barra() {
         initComponents();
         setLocationRelativeTo(null);
