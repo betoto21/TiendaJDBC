@@ -130,11 +130,17 @@ public class CrearReporte extends Thread{
             JasperPrint jprint = JasperFillManager.fillReport(jreport, null, con);
             barra.addPorcentaje("95%");
             barra.addProgreso(95);
-            JasperViewer.viewReport(jprint, false);
-            barra.addPorcentaje("100%");
-            barra.addProgreso(100);
-            sleep(600);
-            barra.dispose();
+            if(barra.isVisible()){
+                JasperViewer.viewReport(jprint, false);
+                barra.addPorcentaje("100%");
+                barra.addProgreso(100);
+                sleep(600);
+                barra.dispose();
+            } else{
+                JOptionPane x = new JOptionPane();
+                x.showMessageDialog(null, "Se cancelo el reporte" );
+            }
+            
             
         } catch (JRException ex) {
             JOptionPane x = new JOptionPane();
