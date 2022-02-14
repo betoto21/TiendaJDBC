@@ -102,12 +102,9 @@ public class CrearReporte extends Thread{
             nuevo.add(separador);
             documento.add(nuevo);
             documento.add(tipo);
-            
             documento.close();
             JOptionPane x = new JOptionPane();
             x.showMessageDialog(null, "Se imprimio el archivo en " + ruta);
-            
-            
         } catch (FileNotFoundException ex) {
             JOptionPane x = new JOptionPane();
             x.showMessageDialog(null, "Hubo un error al imprimir el reporte: \n" + ex.getMessage());
@@ -115,7 +112,6 @@ public class CrearReporte extends Thread{
             JOptionPane x = new JOptionPane();
             x.showMessageDialog(null, "Hubo un error al imprimir el reporte: \n" + ex.getMessage());
         }
-        
     }
     
     public void genReporte(){
@@ -140,8 +136,6 @@ public class CrearReporte extends Thread{
                 JOptionPane x = new JOptionPane();
                 x.showMessageDialog(null, "Se cancelo el reporte" );
             }
-            
-            
         } catch (JRException ex) {
             JOptionPane x = new JOptionPane();
             x.showMessageDialog(null, "Hubo un error al imprimir el reporte: \n" + ex.getMessage());
@@ -149,7 +143,6 @@ public class CrearReporte extends Thread{
             JOptionPane x = new JOptionPane();
             x.showMessageDialog(null, "Hubo un error al imprimir el reporte: \n" + ex.getMessage());
         } catch (InterruptedException ex) {
-            
         }
     }
 }
