@@ -97,7 +97,6 @@ public class TablaPrincipal extends javax.swing.JFrame {
         }
     }
 
-
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -252,8 +251,8 @@ public class TablaPrincipal extends javax.swing.JFrame {
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
 
         if (itemArticulo.isSelected()) {
-                AgregarArticulo x = new AgregarArticulo();
-                x.setVisible(true);
+            AgregarArticulo y = new AgregarArticulo();
+            y.setVisible(true);
         } else {
             AgregarTipo y = new AgregarTipo();
             y.setVisible(true);
@@ -281,7 +280,7 @@ public class TablaPrincipal extends javax.swing.JFrame {
         CrearReporte x = new CrearReporte();
 //        x.imprimirPDF();
 //        x.genReporte();
-          x.iniciar();
+        x.iniciar();
     }//GEN-LAST:event_genPdfActionPerformed
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
