@@ -27,12 +27,7 @@ public class TablaPrincipal extends javax.swing.JFrame {
 
     public void llenarArticulo() {
         tblMostrar.setModel(new javax.swing.table.DefaultTableModel(
-                new Object[][]{
-                    {},
-                    {},
-                    {},
-                    {}
-                },
+                new Object[][]{ {},{},{},{}},
                 new String[]{}
         ));
         ArticulosDAO x = new ArticulosDAO();
@@ -71,12 +66,7 @@ public class TablaPrincipal extends javax.swing.JFrame {
 
     public void llenarTipo() {
         tblMostrar.setModel(new javax.swing.table.DefaultTableModel(
-                new Object[][]{
-                    {},
-                    {},
-                    {},
-                    {}
-                },
+                new Object[][]{ {},{},{},{}},
                 new String[]{}
         ));
         TiposDeArticulosDAO x = new TiposDeArticulosDAO();
