@@ -13,7 +13,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
-
+/**
+ *
+ * @author DANIEL FELIX
+ */
 public class TiposDeArticulosDAO {
     
     private static final String SQL_SELECT = "select * from tblTipoArticulo";

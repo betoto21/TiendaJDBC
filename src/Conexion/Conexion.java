@@ -2,6 +2,10 @@ package Conexion;
 
 import java.sql.*;
 
+/**
+ *
+ * @author DANIEL FELIX
+ */
 public class Conexion {
     //test del push y los comits
         //Solo se debe de camibar esto (DESKTOP-83PV3G4)por lo que les

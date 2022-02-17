@@ -1,14 +1,14 @@
 package Ventanas;
 
-import Ventanas.Tipos.AgregarTipo;
-import Ventanas.Articulos.ModificarArticulo;
-import Ventanas.Articulos.EliminarArticulo;
-import Ventanas.Articulos.AgregarArticulo;
 import Conexion.ArticulosDAO;
 import Conexion.TiposDeArticulosDAO;
 import Domain.Articulos;
 import Reportes.CrearReporte;
 import Domain.TiposDeArticulos;
+import Ventanas.Articulos.AgregarArticulo;
+import Ventanas.Articulos.EliminarArticulo;
+import Ventanas.Articulos.ModificarArticulo;
+import Ventanas.Tipos.AgregarTipo;
 import Ventanas.Tipos.EliminarTipo;
 import Ventanas.Tipos.ModificarTipo;
 import java.util.List;
@@ -17,6 +17,10 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
+/**
+ *
+ * @author DANIEL FELIX
+ */
 public class TablaPrincipal extends javax.swing.JFrame {
 
     public TablaPrincipal() throws InterruptedException {
@@ -239,14 +243,18 @@ public class TablaPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-
         if (itemArticulo.isSelected()) {
-            AgregarArticulo y = new AgregarArticulo();
-            y.setVisible(true);
+//            AgregarArticulo y = new AgregarArticulo();
+//            y.setVisible(true);
+            AgregarArticulo n = new AgregarArticulo(this, true);
+            n.setVisible(true);
+            llenarArticulo();
         } else {
-            AgregarTipo y = new AgregarTipo();
+            AgregarTipo y = new AgregarTipo(this,true);
             y.setVisible(true);
+            llenarTipo();
         }
+        
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void btnActucalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActucalizarActionPerformed
@@ -255,7 +263,6 @@ public class TablaPrincipal extends javax.swing.JFrame {
         } else {
             llenarTipo();
         }
-
     }//GEN-LAST:event_btnActucalizarActionPerformed
 
     private void itemTipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemTipoActionPerformed
@@ -282,28 +289,27 @@ public class TablaPrincipal extends javax.swing.JFrame {
                 String precio = String.valueOf(this.tblMostrar.getValueAt(fila, 2));
                 String Marca = String.valueOf(this.tblMostrar.getValueAt(fila, 4));
                 String Desc = String.valueOf(this.tblMostrar.getValueAt(fila, 5));
-                ModificarArticulo x = new ModificarArticulo(Id, Nombre, precio, Marca, Desc);
+                ModificarArticulo x = new ModificarArticulo(this,true,Id, Nombre, precio, Marca, Desc);
                 x.setVisible(true);
+                llenarArticulo();
             } catch (Exception ex) {
                 JOptionPane pan = new JOptionPane();
                 pan.showMessageDialog(null, "Selecciona una fila primero");
             }
-
         } else {
             try {
                 int fila = tblMostrar.getSelectedRow();
                 String id = String.valueOf(this.tblMostrar.getValueAt(fila, 0));
                 String Nombre = String.valueOf(this.tblMostrar.getValueAt(fila, 1));
                 String Descripcion = String.valueOf(this.tblMostrar.getValueAt(fila, 2));
-                ModificarTipo x = new ModificarTipo(id, Nombre, Descripcion);
-                x.setVisible(rootPaneCheckingEnabled);
+                ModificarTipo x = new ModificarTipo(this,true,id, Nombre, Descripcion);
+                x.setVisible(true);
+                llenarTipo();
             } catch (Exception ex) {
                 JOptionPane pan = new JOptionPane();
                 pan.showMessageDialog(null, "Selecciona una fila primero");
             }
-
         }
-
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
@@ -315,28 +321,27 @@ public class TablaPrincipal extends javax.swing.JFrame {
                 String precio = String.valueOf(this.tblMostrar.getValueAt(fila, 2));
                 String Marca = String.valueOf(this.tblMostrar.getValueAt(fila, 4));
                 String Desc = String.valueOf(this.tblMostrar.getValueAt(fila, 5));
-                EliminarArticulo x = new EliminarArticulo(Id, Nombre, precio, Marca, Desc);
+                EliminarArticulo x = new EliminarArticulo(this,true,Id, Nombre, precio, Marca, Desc);
                 x.setVisible(true);
+                llenarArticulo();
             } catch (Exception ex) {
                 JOptionPane pan = new JOptionPane();
                 pan.showMessageDialog(null, "Selecciona una fila primero");
             }
-
         } else {
             try {
                 int fila = tblMostrar.getSelectedRow();
                 String id = String.valueOf(this.tblMostrar.getValueAt(fila, 0));
                 String Nombre = String.valueOf(this.tblMostrar.getValueAt(fila, 1));
                 String Descripcion = String.valueOf(this.tblMostrar.getValueAt(fila, 2));
-                EliminarTipo x = new EliminarTipo(id, Nombre, Descripcion);
+                EliminarTipo x = new EliminarTipo(this,true,id, Nombre, Descripcion);
                 x.setVisible(rootPaneCheckingEnabled);
+                llenarTipo();
             } catch (Exception ex) {
                 JOptionPane pan = new JOptionPane();
                 pan.showMessageDialog(null, "Selecciona una fila primero");
             }
-
         }
-
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed

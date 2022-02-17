@@ -1,4 +1,3 @@
-
 package Ventanas.Articulos;
 
 import Conexion.ArticulosDAO;
@@ -8,16 +7,26 @@ import Domain.TiposDeArticulos;
 import java.util.ArrayList;
 import java.util.List;
 
-
-public class EliminarArticulo extends javax.swing.JFrame {
+/**
+ *
+ * @author DANIEL FELIX
+ */
+public class EliminarArticulo extends javax.swing.JDialog {
 
     private String IdArticulo;
     private String Nombre;
     private String Precio;
     private String Marca;
     private String Descripcion;
-
-    public EliminarArticulo(String IdArticulo, String Nombre, String Precio, String Marca, String Descripcion) {
+    
+    public EliminarArticulo(java.awt.Frame parent, boolean modal) {
+        super(parent, modal);
+        initComponents();
+        this.setLocationRelativeTo(null);
+    }
+    
+    public EliminarArticulo(java.awt.Frame parent, boolean modal, String IdArticulo, String Nombre, String Precio, String Marca, String Descripcion) {
+        super(parent, modal);
         initComponents();
         this.IdArticulo = IdArticulo;
         this.Nombre = Nombre;
@@ -29,11 +38,6 @@ public class EliminarArticulo extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
     }
     
-    
-    public EliminarArticulo() {
-        initComponents();
-    }
-
     public void llenarCampos(){
         txtID.setText(IdArticulo);
         txtNombre.setText(Nombre);
@@ -53,13 +57,18 @@ public class EliminarArticulo extends javax.swing.JFrame {
         }
         tipoArticulo.setModel(new javax.swing.DefaultComboBoxModel<>(arr));
     }
+    
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         txtPrecio = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
         txtMarca = new javax.swing.JTextField();
+        txtID = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
+        txtNombre = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         txtDescripcion = new javax.swing.JTextField();
         btnCancelar = new javax.swing.JButton();
@@ -68,18 +77,20 @@ public class EliminarArticulo extends javax.swing.JFrame {
         btnEliminar = new javax.swing.JButton();
         tipoArticulo = new javax.swing.JComboBox<>();
         jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        txtID = new javax.swing.JTextField();
-        txtNombre = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Eliminar Articulos");
 
         txtPrecio.setEditable(false);
 
+        jLabel5.setText("Marca");
+
         txtMarca.setEditable(false);
 
+        txtID.setEditable(false);
+
         jLabel6.setText("Descripcion:");
+
+        txtNombre.setEditable(false);
 
         jLabel2.setText("Nombre del Articulo:");
 
@@ -110,12 +121,6 @@ public class EliminarArticulo extends javax.swing.JFrame {
         });
 
         jLabel4.setText("Tipo del articulo");
-
-        jLabel5.setText("Marca");
-
-        txtID.setEditable(false);
-
-        txtNombre.setEditable(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -183,14 +188,16 @@ public class EliminarArticulo extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    
+    
+    
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         this.dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         int id = Integer.valueOf(txtID.getText());
-       
+
         Articulos modificado = new Articulos(id);
         ArticulosDAO x= new ArticulosDAO();
         x.eliminar(modificado);
@@ -198,7 +205,7 @@ public class EliminarArticulo extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void tipoArticuloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tipoArticuloActionPerformed
-
+        
     }//GEN-LAST:event_tipoArticuloActionPerformed
 
     /**
@@ -227,11 +234,19 @@ public class EliminarArticulo extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(EliminarArticulo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
 
-        /* Create and display the form */
+        /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new EliminarArticulo().setVisible(true);
+                EliminarArticulo dialog = new EliminarArticulo(new javax.swing.JFrame(), true);
+                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                    @Override
+                    public void windowClosing(java.awt.event.WindowEvent e) {
+                        System.exit(0);
+                    }
+                });
+                dialog.setVisible(true);
             }
         });
     }

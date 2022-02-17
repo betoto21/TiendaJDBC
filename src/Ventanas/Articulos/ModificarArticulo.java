@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package Ventanas.Articulos;
 
 import Conexion.ArticulosDAO;
@@ -15,16 +11,22 @@ import java.util.List;
  *
  * @author DANIEL FELIX
  */
-public class ModificarArticulo extends javax.swing.JFrame {
-
+public class ModificarArticulo extends javax.swing.JDialog {
+    
     private String IdArticulo;
     private String Nombre;
     private String Precio;
     private String Marca;
     private String Descripcion;
-
+    
+    public ModificarArticulo(java.awt.Frame parent, boolean modal) {
+        super(parent, modal);
+        initComponents();
+    }
+    
     //solo se debe de usar este debido a que se obtiene el id
-    public ModificarArticulo(String IdArticulo, String Nombre, String Precio, String Marca, String Descripcion) {
+    public ModificarArticulo(java.awt.Frame parent, boolean modal,String IdArticulo, String Nombre, String Precio, String Marca, String Descripcion) {
+        super(parent, modal);
         initComponents();
         this.IdArticulo = IdArticulo;
         this.Nombre = Nombre;
@@ -36,10 +38,6 @@ public class ModificarArticulo extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
     }
     
-    public ModificarArticulo() {
-        initComponents();
-    }
-
     public void llenarCampos(){
         txtID.setText(IdArticulo);
         txtNombre.setText(Nombre);
@@ -80,23 +78,24 @@ public class ModificarArticulo extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        txtMarca = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        txtDescripcion = new javax.swing.JTextField();
         btnCancelar = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        btnModificar = new javax.swing.JButton();
         tipoArticulo = new javax.swing.JComboBox<>();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         txtID = new javax.swing.JTextField();
         txtNombre = new javax.swing.JTextField();
         txtPrecio = new javax.swing.JTextField();
-        txtMarca = new javax.swing.JTextField();
-        jLabel6 = new javax.swing.JLabel();
-        txtDescripcion = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
-        btnModificar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Modificar Articulos");
+
+        jLabel6.setText("Descripcion:");
 
         jLabel2.setText("Nombre del Articulo:");
 
@@ -107,7 +106,16 @@ public class ModificarArticulo extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setText("ID del articulo:");
+
         jLabel3.setText("Precio: ");
+
+        btnModificar.setText("Modificar");
+        btnModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificarActionPerformed(evt);
+            }
+        });
 
         tipoArticulo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -120,17 +128,6 @@ public class ModificarArticulo extends javax.swing.JFrame {
         jLabel5.setText("Marca");
 
         txtID.setEditable(false);
-
-        jLabel6.setText("Descripcion:");
-
-        jLabel1.setText("ID del articulo:");
-
-        btnModificar.setText("Modificar");
-        btnModificar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnModificarActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -203,10 +200,6 @@ public class ModificarArticulo extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
-    private void tipoArticuloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tipoArticuloActionPerformed
-
-    }//GEN-LAST:event_tipoArticuloActionPerformed
-
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
         int id = Integer.valueOf(txtID.getText());
         String Nombre = txtNombre.getText();
@@ -218,8 +211,11 @@ public class ModificarArticulo extends javax.swing.JFrame {
         ArticulosDAO x= new ArticulosDAO();
         x.modificar(modificado);
         this.dispose();
-
     }//GEN-LAST:event_btnModificarActionPerformed
+
+    private void tipoArticuloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tipoArticuloActionPerformed
+
+    }//GEN-LAST:event_tipoArticuloActionPerformed
 
     /**
      * @param args the command line arguments
@@ -247,11 +243,19 @@ public class ModificarArticulo extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(ModificarArticulo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
 
-        /* Create and display the form */
+        /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ModificarArticulo().setVisible(true);
+                ModificarArticulo dialog = new ModificarArticulo(new javax.swing.JFrame(), true);
+                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                    @Override
+                    public void windowClosing(java.awt.event.WindowEvent e) {
+                        System.exit(0);
+                    }
+                });
+                dialog.setVisible(true);
             }
         });
     }

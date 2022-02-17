@@ -1,5 +1,9 @@
 package Domain;
 
+/**
+ *
+ * @author DANIEL FELIX
+ */
 public class Articulos {
     
     private int IdArticulo;

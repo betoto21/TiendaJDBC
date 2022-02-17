@@ -6,6 +6,10 @@ import java.sql.*;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
+/**
+ *
+ * @author DANIEL FELIX
+ */
 public class ArticulosDAO{
     
     private static final String SQL_SELECT = "select * from tblArticulo";

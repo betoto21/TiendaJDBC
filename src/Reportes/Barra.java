@@ -1,5 +1,9 @@
 package Reportes;
 
+/**
+ *
+ * @author DANIEL FELIX
+ */
 public class Barra extends javax.swing.JFrame {
 
     public Barra() {
