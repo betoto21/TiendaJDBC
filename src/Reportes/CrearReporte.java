@@ -31,7 +31,7 @@ import net.sf.jasperreports.view.JasperViewer;
 public class CrearReporte extends Thread{
 
     private static final String ruta = System.getProperty("user.home") + "/Desktop/Reporte.pdf";
-    private static final String JRXML = "src\\Reportes\\ReporteArticulos.jrxml";
+    private static final String JRXML = "src\\Reportes\\ReporteArticulo.jrxml";
     Barra barra = new Barra();
     
     public CrearReporte() {

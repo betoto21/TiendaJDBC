@@ -4,6 +4,8 @@ import Domain.Articulos;
 import java.util.List;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -13,9 +15,39 @@ import javax.swing.JOptionPane;
 public class ArticulosDAO{
     
     private static final String SQL_SELECT = "select * from tblArticulo";
-    private static final String SQL_INSERT = "insert into tblArticulo(IDarticulo, Nombre, precio, IDtipoArt, marca, Descripcion) values (?, ?, ?, ?, ?, ?)";
-    private static final String SQL_UPDATE = "UPDATE tblArticulo SET Nombre = ? ,precio = ? , IDtipoArt = ? , marca = ? , Descripcion = ? WHERE IDarticulo = ?";
-    private static final String SQL_DELETE = "DELETE from tblArticulo WHERE IDarticulo = ? ";
+    private static final String SQL_INSERT = "DECLARE @RC int \n"
+            + "DECLARE @IDarticulo int \n"
+            + "DECLARE @Nombre varchar(50) \n"
+            + "DECLARE @precio money \n"
+            + "DECLARE @IDtipoArt int \n"
+            + "DECLARE @marca varchar(50) \n"
+            + "DECLARE @Descripcion varchar(200) \n"
+            + "EXECUTE @RC = [dbo].[SP_INSERT_ARTICULO] \n"
+            + "   @IDarticulo = ? \n"
+            + "  ,@Nombre = ? \n"
+            + "  ,@precio = ? \n"
+            + "  ,@IDtipoArt = ? \n"
+            + "  ,@marca = ? \n"
+            + "  ,@Descripcion = ? \n";
+    private static final String SQL_UPDATE = "DECLARE @RC int\n" +
+              "DECLARE @IDarticulo int\n"
+            + "DECLARE @Nombre varchar(50)\n"
+            + "DECLARE @precio money\n"
+            + "DECLARE @IDtipoArt int\n"
+            + "DECLARE @marca varchar(50)\n"
+            + "DECLARE @Descripcion varchar(200)\n"
+            + "EXECUTE @RC = [dbo].[SP_UPDATE_ARTICULO] \n"
+            + "   @IDarticulo = ? \n"
+            + "  ,@Nombre = ?\n"
+            + "  ,@precio = ?\n"
+            + "  ,@IDtipoArt = ? \n"
+            + "  ,@marca = ? \n"
+            + "  ,@Descripcion = ? ";
+    
+    private static final String SQL_DELETE = "DECLARE @RC int\n" +
+             "DECLARE @IDarticulo int\n"
+            + "EXECUTE @RC = [dbo].[SP_DELETE_ARTICULO] \n"
+            + "   @IDarticulo = ? \n";
 
     public ArticulosDAO() {
     }
@@ -66,99 +98,86 @@ public class ArticulosDAO{
     public void insertar(Articulos art) {
         Connection conexion = null;
         PreparedStatement preparar = null;
-        Articulos articulo = null;
-        
+        Articulos articulo = art;
+        CallableStatement a = null;
         try {
-            //iniciamos la conexion
             conexion = Conexion.getConexion();
-            preparar = conexion.prepareStatement(SQL_INSERT);
-            preparar.setInt(1, art.getIdArticulo());
-            preparar.setString(2, art.getNombre());
-            preparar.setDouble(3, art.getPrecio());
-            preparar.setInt(4, art.getIdTipoArticulo());
-            preparar.setString(5, art.getMarca());
-            preparar.setString(6, art.getDescripcion());
-            
-            preparar.executeUpdate();
-            
-            JOptionPane x = new JOptionPane();
-            x.showMessageDialog(null, "Se agrego correctamente ");
-        
-        } catch (SQLException ex) {
+            a = conexion.prepareCall(SQL_INSERT);
+            a.setInt(1, articulo.getIdArticulo());
+            a.setString(2, articulo.getNombre());
+            a.setDouble(3, articulo.getPrecio());
+            a.setInt(4, articulo.getIdTipoArticulo());
+            a.setString(5, articulo.getMarca());
+            a.setString(6, articulo.getDescripcion());
+            a.execute();
+            ResultSet r=a.getResultSet();
+            JOptionPane.showMessageDialog(null, "se agrego correctamente");
+            } catch (SQLException ex) {
             ex.printStackTrace();
-        } finally{
+        }finally{
             try {
-                Conexion.close(preparar);
+                a.close();
                 Conexion.close(conexion);
             } catch (SQLException ex) {
-                ex.printStackTrace();
+                
             }
         }
+
+        
     }
 
     public void modificar(Articulos art) {
         Connection conexion = null;
         PreparedStatement preparar = null;
-        Articulos articulo = null;
-        
+        Articulos articulo = art;
+        CallableStatement a = null;
         try {
-            //iniciamos la conexion
             conexion = Conexion.getConexion();
-            preparar = conexion.prepareStatement(SQL_UPDATE);
-            int id = art.getIdArticulo();
-            preparar.setString(1, art.getNombre());
-            preparar.setDouble(2, art.getPrecio());
-            preparar.setInt(3, art.getIdTipoArticulo());
-            preparar.setString(4, art.getMarca());
-            preparar.setString(5, art.getDescripcion());
-            preparar.setInt(6, art.getIdArticulo());
-            
-            preparar.executeUpdate();
-            
+            a = conexion.prepareCall(SQL_UPDATE);
+            a.setInt(1,articulo.getIdArticulo());
+            a.setString(2, articulo.getNombre());
+            a.setDouble(3,articulo.getPrecio());
+            a.setInt(4, articulo.getIdTipoArticulo());
+            a.setString(5, articulo.getMarca());
+            a.setString(6, articulo.getDescripcion());
+            a.execute();
             JOptionPane x = new JOptionPane();
             x.showMessageDialog(null, "Se Modifico correctamente ");
-            
-            
-        
         } catch (SQLException ex) {
             ex.printStackTrace();
         } finally{
             try {
-                Conexion.close(preparar);
+                a.close();
                 Conexion.close(conexion);
             } catch (SQLException ex) {
                 ex.printStackTrace();
             }
         }
-            
-        
     }
 
     public void eliminar(Articulos art) {
         Connection conexion = null;
         PreparedStatement preparar = null;
-        Articulos articulo = null;
-        
+        Articulos articulo = art;
+        CallableStatement a = null;
         try {
             //iniciamos la conexion
             conexion = Conexion.getConexion();
-            preparar = conexion.prepareStatement(SQL_DELETE);
-            int id = art.getIdArticulo();
-            preparar.setInt(1, id);
-            preparar.executeUpdate();
+            a = conexion.prepareCall(SQL_DELETE);
+            a.setInt(1, articulo.getIdArticulo());
+            a.execute();
             JOptionPane x = new JOptionPane();
             x.showMessageDialog(null, "Se Elimino correctamente ");
         } catch (SQLException ex) {
             ex.printStackTrace();
         } finally{
             try {
-                Conexion.close(preparar);
+                a.close();
                 Conexion.close(conexion);
             } catch (SQLException ex) {
                 ex.printStackTrace();
             }
         }
-        
     }
 
     
