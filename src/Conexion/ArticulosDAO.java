@@ -15,39 +15,9 @@ import javax.swing.JOptionPane;
 public class ArticulosDAO{
     
     private static final String SQL_SELECT = "select * from tblArticulo";
-    private static final String SQL_INSERT = "DECLARE @RC int \n"
-            + "DECLARE @IDarticulo int \n"
-            + "DECLARE @Nombre varchar(50) \n"
-            + "DECLARE @precio money \n"
-            + "DECLARE @IDtipoArt int \n"
-            + "DECLARE @marca varchar(50) \n"
-            + "DECLARE @Descripcion varchar(200) \n"
-            + "EXECUTE @RC = [dbo].[SP_INSERT_ARTICULO] \n"
-            + "   @IDarticulo = ? \n"
-            + "  ,@Nombre = ? \n"
-            + "  ,@precio = ? \n"
-            + "  ,@IDtipoArt = ? \n"
-            + "  ,@marca = ? \n"
-            + "  ,@Descripcion = ? \n";
-    private static final String SQL_UPDATE = "DECLARE @RC int\n" +
-              "DECLARE @IDarticulo int\n"
-            + "DECLARE @Nombre varchar(50)\n"
-            + "DECLARE @precio money\n"
-            + "DECLARE @IDtipoArt int\n"
-            + "DECLARE @marca varchar(50)\n"
-            + "DECLARE @Descripcion varchar(200)\n"
-            + "EXECUTE @RC = [dbo].[SP_UPDATE_ARTICULO] \n"
-            + "   @IDarticulo = ? \n"
-            + "  ,@Nombre = ?\n"
-            + "  ,@precio = ?\n"
-            + "  ,@IDtipoArt = ? \n"
-            + "  ,@marca = ? \n"
-            + "  ,@Descripcion = ? ";
-    
-    private static final String SQL_DELETE = "DECLARE @RC int\n" +
-             "DECLARE @IDarticulo int\n"
-            + "EXECUTE @RC = [dbo].[SP_DELETE_ARTICULO] \n"
-            + "   @IDarticulo = ? \n";
+    private static final String SQL_INSERT = "execute SP_INSERT_ARTICULO ?,?,?,?,?,? ";
+    private static final String SQL_UPDATE = "execute SP_UPDATE_ARTICULO ?,?,?,?,?,?";
+    private static final String SQL_DELETE = "execute SP_DELETE_ARTICULO ?";
 
     public ArticulosDAO() {
     }
@@ -58,7 +28,6 @@ public class ArticulosDAO{
         ResultSet resultado = null;
         Articulos articulo = null;
         List<Articulos> articulos = new ArrayList();
-        
         try {
             //iniciamos la conexion
             conexion = Conexion.getConexion();
